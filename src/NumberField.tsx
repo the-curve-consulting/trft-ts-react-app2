@@ -7,6 +7,6 @@ export function NumberField({ value }: { value: string; }) {
       color: "#fff",
       fontSize: "2em",
       textAlign: "right"
-    }}>{value}</Col>
+    }}>{value || <div>&nbsp;</div>}</Col>
   </Row>;
 }

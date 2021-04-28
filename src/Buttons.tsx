@@ -1,6 +1,9 @@
 import { Button, Col, Row } from "react-bootstrap";
 
-export function Buttons() {
+type OnClickHandler = (button: string) => void;
+
+// export function Buttons({ onButtonClick }: { onButtonClick: (button: string) => void}) {
+export function Buttons({ onButtonClick }: { onButtonClick: OnClickHandler; }) {
 
   const buttons = [
     "C", "±", "%", "/",
@@ -11,13 +14,14 @@ export function Buttons() {
   ];
 
   function buttonClicked(val: string) {
-    alert(val);
+    onButtonClick(val);
   }
 
   function generateButtons() {
     return buttons.map((val) => <Col xs={val === "0" ? 6 : 3} className="my-1">
       <Button onClick={() => buttonClicked(val)} block>{val}</Button>
-    </Col>);
+    </Col>
+    );
   }
 
   return <>

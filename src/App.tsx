@@ -1,6 +1,5 @@
 import React from 'react';
 import './App.css';
-import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import { Navigation } from './Navigation';
 import { Calculator } from './Calculator';
