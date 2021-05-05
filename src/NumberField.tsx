@@ -1,12 +1,12 @@
 import { Col, Row } from "react-bootstrap";
 
-export function NumberField({ value }: { value: string; }) {
+export function NumberField({ value, decimal }: { value: number, decimal: boolean }) {
   return <Row>
     <Col xs={12} style={{
       background: "#000",
       color: "#fff",
       fontSize: "2em",
       textAlign: "right"
-    }}>{value || <div>&nbsp;</div>}</Col>
+    }}>{value}{ decimal && '.'}</Col>
   </Row>;
 }

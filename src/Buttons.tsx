@@ -1,9 +1,10 @@
 import { Button, Col, Row } from "react-bootstrap";
 
 type OnClickHandler = (button: string) => void;
+type OnCommandHandler = (cmd: number) => void;
 
-// export function Buttons({ onButtonClick }: { onButtonClick: (button: string) => void}) {
-export function Buttons({ onButtonClick }: { onButtonClick: OnClickHandler; }) {
+type Props = { onNumber: OnClickHandler, onCommand: OnCommandHandler };
+export function Buttons({ onCommand, onNumber }: Props) {
 
   const buttons = [
     "C", "±", "%", "/",
@@ -14,11 +15,21 @@ export function Buttons({ onButtonClick }: { onButtonClick: OnClickHandler; }) {
   ];
 
   function buttonClicked(val: string) {
-    onButtonClick(val);
+    if (!val.length) {
+      return;
+    }
+
+    const chr = val.charCodeAt(0);
+    if (!((chr >= 48 && chr <= 57) || chr === 46)) {
+      onCommand(chr);
+      return;
+    }
+
+    onNumber(val);
   }
 
   function generateButtons() {
-    return buttons.map((val) => <Col xs={val === "0" ? 6 : 3} className="my-1">
+    return buttons.map((val, i) => <Col key={`key-${i}`} xs={val === "0" ? 6 : 3} className="my-1">
       <Button onClick={() => buttonClicked(val)} block>{val}</Button>
     </Col>
     );
