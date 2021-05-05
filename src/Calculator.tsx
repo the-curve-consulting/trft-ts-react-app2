@@ -2,6 +2,7 @@ import { inspect } from "util";
 import { useState } from "react";
 import { Buttons } from "./Buttons";
 import { NumberField } from "./NumberField";
+import { clear } from "node:console";
 
 type Operator = string | undefined;
 
@@ -40,24 +41,37 @@ export function Calculator() {
     setOperator(undefined);
   }
 
+  function handleOperation(op: string) {
+    if (operator) {
+      processEquals();
+    } else {
+      setResult(value);
+    }
+
+    setValue(0);
+    setOperator(op);
+  }
+
+  function clear() {
+    setOperator(undefined);
+    setValue(0);
+    setResult(0);
+    setDecimal(false);
+  }
+
   function handleCommand(cmd: number) {
     switch (cmd) {
       case 61: // Equals
         processEquals();
         break;
       case 67: // Clear
-        setOperator(undefined);
-        setValue(0);
-        setResult(0);
-        setDecimal(false);
+        clear();
         break;
       case 43:
       case 45:
       case 120:
       case 47:
-        setResult(value);
-        setValue(0);
-        setOperator(String.fromCharCode(cmd));
+        handleOperation(String.fromCharCode(cmd));
         break;
       default:
         console.warn('Unhandled command', cmd);
